@@ -1,3 +1,20 @@
+# ts_version: 01
+# Year: 2015
+# Day: 311
+# Hour: 0
+# Minute: 00
+# Second: 00
+# SW dynamic pressure: 2.3
+# SW velocity: 721.0
+# IMF By: -2.6
+# IMF Bz: -3.7
+# Dst: -62.0
+# DIR: 1
+# Geographic Geocentric Latitude: 78.222
+# Longitude: 15.648
+# Xgsm: 1.
+# Ygsm: 1.
+# Zgsm: 1.
  XGSM    YGSM   ZGSM    R    BXGSM   BYGSM   BZGSM   B
  [Re]    [Re]   [Re]   [Re]  [nT]    [nT]   [nT]   [nT]
   -0.456  -0.215   0.864   1.000    30958.90    12532.63   -43157.12    54571.58
