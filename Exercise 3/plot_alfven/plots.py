@@ -65,10 +65,13 @@ def plot_alfven_speed(ax, filename):
 
     # Calculate magnetic field magnitude and Alfvén speed
     alfven_speed = []
+   
     for i in range(len(XGSM)):
         B = np.sqrt(BXGSM[i]**2 + BYGSM[i]**2 + BZGSM[i]**2)
         alfven_spd = B / np.sqrt(MU0 * rho[i])
         alfven_speed.append(alfven_spd)
+        
+        
 
     # Plot the Alfvén speed using scatter, coloring by Alfvén speed
     sc = ax.scatter(XGSM, YGSM, ZGSM, c=alfven_speed, cmap='plasma', s=50, label = filename)
@@ -77,6 +80,47 @@ def plot_alfven_speed(ax, filename):
     ax.set_ylabel('YGSM [Re]')
     ax.set_zlabel('ZGSM [Re]')
     ax.legend()
+    
+    return alfven_speed
+
+def plot_alfven_time(ax, alfven_speed, filename):
+    """
+    Plots a 3D scatter plot of the Alfvén speed along the magnetic field lines.
+
+    Parameters:
+        ax (Axes3D): The 3D axes to plot on.
+        filename (str): The path to the data file.
+    """
+    # Load data from the file
+    data = np.genfromtxt(filename, skip_header=1, delimiter=None)
+
+        # Extract relevant columns
+    XGSM = data[:, 0]
+    YGSM = data[:, 1]
+    ZGSM = data[:, 2]
+    BXGSM = data[:, 4] 
+    BYGSM = data[:, 5]
+    BZGSM = data[:, 6]
+    rho = plasma_density(XGSM,YGSM,ZGSM)  # Assuming  plasma density model(rho)
+    alfven_time = [] 
+     
+    for i in range(len(alfven_speed)):
+        
+        alfven_t = 57000000/alfven_speed[i]
+        alfven_time.append(alfven_t)
+        
+        # Plot the Alfvén speed using scatter, coloring by Alfvén speed
+    sc = ax.scatter(XGSM, YGSM, ZGSM, c=alfven_speed, cmap='plasma', s=50, label = filename)
+    ax.set_title(f'Alfvén Time along Magnetic Field Line')
+    ax.set_xlabel('XGSM [Re]')
+    ax.set_ylabel('YGSM [Re]')
+    ax.set_zlabel('ZGSM [Re]')
+    ax.legend()
+        
+
+        
+   
+     
     
     # Add color bar to show the Alfvén speed scale
     cbar = plt.colorbar(sc, ax=ax)
@@ -105,6 +149,10 @@ def plot_all_files_in_folder(folder_path):
     # Create the figure for Alfvén speed plot
     fig2 = plt.figure(figsize=(10, 7))
     ax2 = fig2.add_subplot(111, projection='3d')
+    
+    # Create the figure for Alfvén time plot
+    fig3 = plt.figure(figsize=(10, 7))
+    ax3 = fig3.add_subplot(111, projection='3d')
 
     # Plot each file
     for txt_file in txt_files:
@@ -114,8 +162,11 @@ def plot_all_files_in_folder(folder_path):
         # Plot magnetic field lines
         plot_field_lines(ax1, filepath, color)
 
+        # Plot Alfvén speed and getting the speed for the next plot
+        alfven_speed = plot_alfven_speed(ax2, filepath)
+        
         # Plot Alfvén speed
-        plot_alfven_speed(ax2, filepath)
+        plot_alfven_time(ax3, alfven_speed, filepath)
 
     # Finalize 3D plot
     ax1.set_title('Earth Magnetic Field Lines over LYR (GSM)')
