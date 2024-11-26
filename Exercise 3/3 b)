@@ -4,6 +4,6 @@
 d = CHOOSE IT  # m please
 
 # Calculate the characteristic Alfvén propagation time
-t_A = d * 1e3 / v_A  # in seconds
+t_A = d / v_A  # in seconds
 
 t_A 
