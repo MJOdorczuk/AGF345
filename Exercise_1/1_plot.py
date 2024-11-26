@@ -27,7 +27,7 @@ def normalize_magnetic_field(df):
 
 def extract_city_code(file_name):
     """
-    Extracts the city code (XXX) from the filename pattern "B_311_2015_2021TT_XXX_00.txt".
+    Extracts the city code (XXX) from the filename pattern "B_311_2015_2001TT_XXX.txt".
     """
     match = re.search(r'B_311_\d{4}_\d{4}TT_(\w{3})_\d{2}\.txt', file_name)
     if match:
