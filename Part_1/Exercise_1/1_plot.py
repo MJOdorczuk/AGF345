@@ -147,6 +147,6 @@ def process_all_hours(directory):
         create_3d_quiver_plot(combined_df, scale=0.1, zoom=True, save_as=f"3d_plot_with_arrows_hour_{hour_label}.pdf", arrows=True, hour_label=hour_label)
         create_3d_quiver_plot(combined_df, scale=0.1, zoom=False, save_as=f"3d_plot_without_arrows_hour_{hour_label}.pdf", arrows=False, hour_label=hour_label)
 
-# Run the process for all subdirectories inside './Data'
+# Run the process for all subdirectories inside '../../data'
 directory = "../../data"  # Parent directory containing 'Hour_00' and 'Hour_17'
 process_all_hours(directory)

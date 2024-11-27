@@ -2,7 +2,7 @@
 
 # Define the base URL for downloading
 base_url="https://cdaweb.gsfc.nasa.gov/pub/data/omni/high_res_omni/monthly_1min/"
-output_dir="../Data/omni_data_monthly_1min"
+output_dir="./omni_data_monthly_1min"
 
 # Create output directory if it doesn't exist
 mkdir -p "$output_dir"
