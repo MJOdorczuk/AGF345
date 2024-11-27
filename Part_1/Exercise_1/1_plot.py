@@ -51,7 +51,7 @@ def process_files_in_directory(directory, file_prefix="B_311"):
         city_code = extract_city_code(file_name)
         df_normalized['City'] = city_code  # Add city code to the DataFrame
         all_data.append(df_normalized)
-    
+
     full_df = pd.concat(all_data, ignore_index=True)
     return full_df
 
@@ -62,7 +62,7 @@ def create_3d_quiver_plot(df, scale=0.1, zoom=True, save_as=None, arrows=True, h
     """
     if zoom:
         df = df[df['Radius'] < 1.5]
-    
+
     fig = plt.figure(figsize=(12, 8))
     ax = fig.add_subplot(111, projection='3d')
 
@@ -104,8 +104,8 @@ def create_3d_quiver_plot(df, scale=0.1, zoom=True, save_as=None, arrows=True, h
         offset_z = 0.2
 
         ax.text(
-            middle_row['XGSM'] + offset_x, 
-            middle_row['YGSM'] + offset_y, 
+            middle_row['XGSM'] + offset_x,
+            middle_row['YGSM'] + offset_y,
             middle_row['ZGSM'] + offset_z,
             middle_row['City'], fontsize=8, color='blue'
         )
@@ -114,8 +114,8 @@ def create_3d_quiver_plot(df, scale=0.1, zoom=True, save_as=None, arrows=True, h
 
     if arrows:
         ax.quiver(
-            df['XGSM'], df['YGSM'], df['ZGSM'], 
-            df['BX_norm'] * scale, df['BY_norm'] * scale, df['BZ_norm'] * scale, 
+            df['XGSM'], df['YGSM'], df['ZGSM'],
+            df['BX_norm'] * scale, df['BY_norm'] * scale, df['BZ_norm'] * scale,
             color='r', length=0.5, normalize=False, linewidth=0.5, label='Normalized Field Vectors'
         )
 
@@ -132,21 +132,21 @@ def process_all_hours(directory):
     Processes each subdirectory (hour folder) in the given directory and generates plots.
     """
     subdirectories = [d for d in os.listdir(directory) if os.path.isdir(os.path.join(directory, d))]
-    
+
     for subdirectory in subdirectories:
         hour_label = subdirectory[-2:]  # Get the last two characters (YY) from folder name, e.g., '00' or '17'
         print(f"Processing data for Hour {hour_label}...")
-        
+
         # Get the path for the subdirectory
         subdirectory_path = os.path.join(directory, subdirectory)
-        
+
         # Process files in the subdirectory
         combined_df = process_files_in_directory(subdirectory_path)
-        
+
         # Create and save the plots
         create_3d_quiver_plot(combined_df, scale=0.1, zoom=True, save_as=f"3d_plot_with_arrows_hour_{hour_label}.pdf", arrows=True, hour_label=hour_label)
         create_3d_quiver_plot(combined_df, scale=0.1, zoom=False, save_as=f"3d_plot_without_arrows_hour_{hour_label}.pdf", arrows=False, hour_label=hour_label)
 
 # Run the process for all subdirectories inside './Data'
-directory = "../Data"  # Parent directory containing 'Hour_00' and 'Hour_17'
+directory = "../../data"  # Parent directory containing 'Hour_00' and 'Hour_17'
 process_all_hours(directory)
