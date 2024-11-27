@@ -1,16 +1,18 @@
 import numpy as np
 
-# Constants
 e = 1.602e-19  # Elementary charge in Coulombs
 m_e = 9.109e-31  # Electron mass in kg
-m_i = 1.67e-27  # Ion mass (example for a proton, in kg)
+m_i = 1.67e-27  # Ion mass (for proton, in kg)
 pi = np.pi  # Pi constant
-nu_ei = 1e9  # Electron-ion collision frequency (example value, in Hz)
+nu_ei = 1e9  # Electron-ion collision frequency in Hz (typical for ionospheric conditions)
 
-# Define input values
-n = 1e11  # Electron density in m^-3 (modify this as needed)
-K_th = 1e-3  # Example constant K_th (modify this as needed)
-n_e = 1e11  # Example electron density for Pedersen conductivity calculation
+# Define ionospheric plasma parameters
+n = 1e11  # Electron density in m^-3 (typical for ionospheric plasma)
+
+# Convert K_th from 10 keV to Joules (SI)
+K_th = 1.602e-15  # 10 keV in joules (1 eV = 1.602e-19 J)
+
+n_e = 10e11  # Example electron density for Pedersen conductivity calculation
 
 # Calculate K
 K = (e**2 * n) / np.sqrt(2 * pi * m_e * K_th)
