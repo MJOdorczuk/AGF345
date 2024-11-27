@@ -146,3 +146,10 @@ if __name__ == "__main__":
     focused_end = datetime(2022, 11, 26)
     focused_df = df[(df["Datetime"] >= focused_start) & (df["Datetime"] < focused_end)]
     create_plot(focused_df, "OMNI Data: Focused Range (24th Nov  - 26th Nov )", "omni_data_focused_range.png")
+
+
+    # Create the focused plot (24th Nov 12am to 26th Nov 12am)
+    focused_start = datetime(2022, 11, 25, 14, 0, 0)
+    focused_end = datetime(2022, 11, 25, 21, 0, 0)
+    focused_df = df[(df["Datetime"] >= focused_start) & (df["Datetime"] < focused_end)]
+    create_plot(focused_df, "OMNI Data: Short Range (25th Nov 14:00  - 21:00 )", "omni_data_short_range.png")
