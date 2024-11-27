@@ -25,8 +25,6 @@ By, nT (GSE)                    F8.2
 Bz, nT (GSE)                    F8.2
 By, nT (GSM)                    F8.2    Determined from post-shift GSE components
 Bz, nT (GSM)                    F8.2    Determined from post-shift GSE components
-                                   See  footnote "gsm" below
-
 RMS SD B scalar, nT             F8.2                    
 RMS SD field vector, nT         F8.2    See  footnote E below
 Flow speed, km/s                F8.1
@@ -45,8 +43,6 @@ Z(s/c), GSE, Re                 F8.2
 BSN location, Xgse, Re          F8.2    BSN = bow shock nose
 BSN location, Ygse, Re          F8.2
 BSN location, Zgse, Re          F8.2
-
-              Ancilary Data
 AE-index, nT                    I6      See  footnote H below
 AL-index, nT                    I6      See  footnote H below
 AU-index, nT                    I6      See  footnote H below
