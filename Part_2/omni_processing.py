@@ -69,11 +69,16 @@ def filter_data(input_file, output_file, start_date, end_date):
 
 # Function to create and save a plot
 def create_plot(df, plot_title, output_file):
-    # Convert Flow_Speed_km_s to meters per second
-    df["Flow_Speed_m_s"] = df["Flow_Speed_km_s"] * 1000
+        # Calculate the necessary columns first
+    df["Flow_Speed_m_s"] = df["Flow_Speed_km_s"] * 1000  # Convert km/s to m/s
+    df["B_module"] = (df["Bx_nT_GSE_GSM"]**2 + df["By_nT_GSE"]**2 + df["Bz_nT_GSE"]**2)**0.5  # B module
 
-    # Calculate the module of B as sqrt(Bx^2 + By^2 + Bz^2)
-    df["B_module"] = (df["Bx_nT_GSE_GSM"]**2 + df["By_nT_GSE"]**2 + df["Bz_nT_GSE"]**2)**0.5
+    # Apply rolling mean with window size of 5 to relevant columns
+    cols_to_smooth = ["Bz_nT_GSE", "Bx_nT_GSE_GSM", "By_nT_GSE", 
+                      "B_module", "Flow_Speed_m_s", 
+                      "Proton_Density_n_cc", "Temperature_K"]
+    df[cols_to_smooth] = df[cols_to_smooth].rolling(window=5).mean()
+
 
     # Create a figure with subplots
     fig, axes = plt.subplots(5, 1, figsize=(12, 15), sharex=True)
