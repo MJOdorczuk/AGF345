@@ -67,11 +67,8 @@ def filter_data(input_file, output_file, start_date, end_date):
 
     print(f"Filtered data with reduced columns has been written to {output_file}.")
 
-# Function to plot data from the output file
-def plot_data(output_file):
-    # Read the output file into a pandas DataFrame
-    df = pd.read_csv(output_file, parse_dates=["Datetime"])
-
+# Function to create and save a plot
+def create_plot(df, plot_title, output_file):
     # Convert Flow_Speed_km_s to meters per second
     df["Flow_Speed_m_s"] = df["Flow_Speed_km_s"] * 1000
 
@@ -80,7 +77,7 @@ def plot_data(output_file):
 
     # Create a figure with subplots
     fig, axes = plt.subplots(5, 1, figsize=(12, 15), sharex=True)
-    fig.suptitle("OMNI Data Plots", fontsize=16)
+    fig.suptitle(plot_title, fontsize=16)
 
     # Subplot 1: Bz_nT_GSE over Datetime
     axes[0].plot(df["Datetime"], df["Bz_nT_GSE"], label="Bz_nT_GSE", color="blue")
@@ -122,8 +119,8 @@ def plot_data(output_file):
     plt.subplots_adjust(top=0.95)
 
     # Save the plot
-    plt.savefig("omni_data_plots.png")
-    print("Plot saved as 'omni_data_plots.png'.")
+    plt.savefig(output_file)
+    print(f"Plot saved as '{output_file}'.")
 
     # Show the plot
     plt.show()
@@ -138,5 +135,14 @@ if __name__ == "__main__":
     # Filter data
     filter_data(input_file, output_file, start_date, end_date)
 
-    # Plot data
-    plot_data(output_file)
+    # Load filtered data
+    df = pd.read_csv(output_file, parse_dates=["Datetime"])
+
+    # Create the full-range plot
+    create_plot(df, "OMNI Data: Full Range", "omni_data_full_range.pdf")
+
+    # Create the focused plot (24th Nov 12am to 26th Nov 12am)
+    focused_start = datetime(2022, 11, 24)
+    focused_end = datetime(2022, 11, 26)
+    focused_df = df[(df["Datetime"] >= focused_start) & (df["Datetime"] < focused_end)]
+    create_plot(focused_df, "OMNI Data: Focused Range (24th Nov 12am - 26th Nov 12am)", "omni_data_focused_range.pdf")
