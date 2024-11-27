@@ -11,7 +11,7 @@ sigma = 500e3   # Width of Gaussian for plasma density (m)
 R_0 = 6.37e6    # Earth's radius (m)
 
 # Altitude range: 1,000 km to 15,000 km
-altitudes = np.linspace(1e3, 15e3, 500) * 1e3  # Altitude in meters
+altitudes = np.linspace(1e2, 15e3, 500) * 1e3  # Altitude in meters
 
 # Plasma density profile: Gaussian-like at lower altitudes, exponential decay above 4,000 km
 n_h = n_0 * np.exp(-0.5 * ((altitudes - h_peak) / sigma) ** 2) + 1e6# * np.exp(-altitudes / (2e6))  # Combined profile
@@ -54,6 +54,5 @@ ax3.yaxis.get_offset_text().set_x(1.15)
 # Title and legend
 plt.title('Ionospheric Plasma Density and Acceleration Potential as a Function of Altitude')
 fig.tight_layout()
+plt.xscale('log')
 plt.show()
-
-
