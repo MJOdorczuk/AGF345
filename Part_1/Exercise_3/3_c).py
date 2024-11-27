@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 # Constants
 m_e = 9.11e-31  # Electron mass (kg)
 e = 1.6e-19     # Elementary charge (C)
-j_I = 5e-6      # Current density (A/m^2)
+j_I = 3e-6      # Current density (A/m^2)
 n_0 = 1e12      # Peak plasma density at lower altitudes (particles/m^3)
 h_peak = 400e3  # Peak density altitude (m)
 sigma = 500e3   # Width of Gaussian for plasma density (m)
