@@ -24,8 +24,8 @@ filtered_data.head()
 from datetime import datetime
 
 # Define the substorm interval
-start_time = datetime(2022, 11, 25, 18, 31, 51)
-end_time = datetime(2022, 11, 25, 20, 2, 3)
+start_time = datetime(2022, 11, 25, 18, 32, 0)
+end_time = datetime(2022, 11, 25, 20,11 , 0)
 
 # Filter the data within the substorm interval
 substorm_data = filtered_data[(filtered_data['Datetime'] >= start_time) & (filtered_data['Datetime'] <= end_time)]
@@ -54,6 +54,7 @@ total_energy = substorm_data['Epsilon_W'].sum() * time_interval  # Total energy 
 
 total_energy, substorm_data[['Datetime', 'Epsilon_W']].head()
 
+
 # Plot the energy input rate (Epsilon) over time
 plt.figure(figsize=(12, 6))
 plt.plot(substorm_data['Datetime'], substorm_data['Epsilon_W'] / 1e9, label='Energy Input Rate (GW)', color='blue')
@@ -66,3 +67,12 @@ plt.legend()
 plt.grid()
 plt.tight_layout()
 plt.show()
+
+# Define the two times as datetime objects
+start_time = datetime(2022, 11, 25, 18, 30, 0)
+end_time = datetime(2022, 11, 25, 20, 11, 0)
+
+# Calculate the difference in seconds
+time_difference_seconds = (end_time - start_time).total_seconds()
+time_difference_seconds
+
